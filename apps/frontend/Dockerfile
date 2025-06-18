@@ -1,6 +1,6 @@
 FROM node:23 AS build
 WORKDIR /app
-COPY package.json nx.json ./
+COPY package.json nx.json tsconfig.base.json ./
 COPY apps/frontend ./apps/frontend
 COPY libs/shared-types ./libs/shared-types
 RUN npm install

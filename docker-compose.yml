@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: . # Project root
+      dockerfile: apps/frontend/Dockerfile
+    image: frontend:latest
+    ports:
+      - '8080:80'
+    depends_on:
+      - task-service
+      - user-service
+    environment:
+      - TASK_SERVICE_URL=http://task-service:3000
+      - USER_SERVICE_URL=http://user-service:3001
+
+  task-service:
+    build:
+      context: . # Project root
+      dockerfile: apps/task-service/Dockerfile
+    image: task-service:latest
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+
+  user-service:
+    build:
+      context: . # Project root
+      dockerfile: apps/user-service/Dockerfile
+    image: user-service:latest
+    ports:
+      - '3001:3001'
+    environment:
+      - NODE_ENV=production
+
+networks:
+  app-network:
+    driver: bridge
