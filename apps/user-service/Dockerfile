@@ -1,6 +1,6 @@
 FROM node:23
 WORKDIR /app
-COPY package.json nx.json ./
+COPY package.json nx.json tsconfig.base.json ./
 COPY apps/user-service ./apps/user-service
 COPY libs/shared-types ./libs/shared-types
 RUN npm install
